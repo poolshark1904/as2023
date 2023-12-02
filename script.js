@@ -8,7 +8,7 @@ document.getElementById("santaForm").addEventListener("submit", function (event)
         method: form.method,
         body: formData
     })
-    .then(response => response.text())  // Parse the HTML response
+    .then(response => response.json())  // Parse the JSON response
     .then(data => {
         displayMessage(data);
     })
@@ -18,8 +18,18 @@ document.getElementById("santaForm").addEventListener("submit", function (event)
 function displayMessage(data) {
     var messageContainer = document.getElementById("message");
     
-    // Display the HTML content directly
-    messageContainer.innerHTML = data;
+    if (data.status === "success") {
+        // If the status is "success", hide the form
+        document.getElementById("santaForm").style.display = "none";
+    } else {
+        // If there is an error, clear the email field and focus on it
+        document.getElementById("email").value = "";
+        document.getElementById("email").focus();
+    }
+
+    // Display the message from the server
+    messageContainer.innerHTML = data.message;
     messageContainer.style.display = "block";
 }
+
 
