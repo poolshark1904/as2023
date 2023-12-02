@@ -28,8 +28,9 @@ function displayMessage(data) {
     }
 
     // Display the message from the server
-    messageContainer.innerHTML = data.message;
+    messageContainer.innerHTML = '<p>' + data.message + '</p>';
     messageContainer.style.display = "block";
 }
+
 
 
